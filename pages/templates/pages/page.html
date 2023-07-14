@@ -1,0 +1,79 @@
+{% extends "pages/index.html" %}
+{% load static %}
+{% load pages_tags %}
+
+{% block page %}
+    <section id="banner" class="bg-img" data-bg="{% static 'images/'%}{{ random_image }}">
+        <div class="inner">
+            <header>
+                <h1>{{ title }}</h1>
+            </header>
+        </div>
+        <a href="#one" class="more">Learn More</a>
+    </section>
+
+    {% for p in posts %}
+        <!-- One -->
+        <section id="1" class="wrapper post bg-img" data-bg="{% static 'images/'%}{{ p.random_image }}">
+            <div class="inner">
+                <article class="box">
+                    <header>
+                        <h2>{{ p.title }}</h2>
+                        <p>{{ p.time_create|date:"d-m-Y" }}</p>
+                    </header>
+                    <div class="content">
+                        <p>{{ p.content|linebreaks|truncatewords:40 }}</p>
+                    </div>
+                    <footer>
+                        <a href="{{ p.get_absolute_url }}" class="button alt">Узнать больше</a>
+                    </footer>
+                </article>
+            </div>
+            <a href="#one" class="more">Learn</a>
+        </section>
+    {% endfor %}
+
+<section id="post" class="wrapper post bg-img" data-bg="{% static 'images/' %}{{ random_image }}">
+    <div class="inner">
+        <article class="">
+            <header>
+                <h2>{{ page_obj.title }}</h2>
+                <p>{{ page_obj.time_create|date:"d-m-Y" }}</p>
+            </header>
+            <div class="content">
+                <div class="actions">
+                        {% if cat_selected == 0 %}
+                            <a class="button">Все категории</a>
+                        {% else %}
+                            <a href="{% url 'HomeForRedirect' %}" class="button alt">Все категории</a>
+                        {% endif %}
+                        {% for c in cats %}
+                            {% if c.pk == cat_selected %}
+                                <a class="button">{{ c.name }}</a>
+                            {% else %}
+                                <a href="{{ c.get_absolute_url }}" class="button alt">{{ c.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                </div>
+            </div>
+            <footer>
+                <ul class="actions">
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}" class="button alt icon fa-chevron-left"><span class="label">Previous</span></a></li>
+                    {% else %}
+                        <li><a class="button alt icon fa-chevron-left disabled"><span class="label">Previous</span></a></li>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}" class="button alt icon fa-chevron-right"><span class="label">Next</span></a></li>
+                    {% else %}
+                        <li><a class="button alt icon fa-chevron-right disabled"><span class="label">Next</span></a></li>
+                    {% endif %}
+                </ul>
+            </footer>
+        </article>
+    </div>
+</section>
+
+
+{% endblock %}

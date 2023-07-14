@@ -1,0 +1,51 @@
+{% extends "pages/generic.html" %}
+
+{% block generic_page %}
+
+<h1> </h1>
+<!-- Form -->
+
+
+    <form method="post" action="{% url 'add_page' %}">
+        {% csrf_token %}
+
+        {% for field in form %}
+            {% if field.errors %}
+                <p>{{ field.errors }}</p>
+            {% endif %}
+        {% endfor %}
+
+        <div class="row uniform">
+            <div class="6u 12u$(xsmall)">
+                {{ form.title }}
+            </div>
+            <div class="6u$ 12u$(xsmall)">
+                {{ form.slug }}
+            </div>
+            <!-- Break -->
+            <div class="12u$">
+                <div class="select-wrapper">
+                    {{ form.belong_to }}
+                </div>
+            </div>
+            <!-- Break -->
+            <div class="12u$">
+                {{ form.content }}
+            </div>
+
+            <div class="6u 12u$(small)" style="margin-left: 12.5%;">
+                <input type="checkbox" id="is_published" name="is_published" {% if form.is_published.value %}checked{% endif %}>
+                <label for="is_published">Опубликовать</label>
+            </div>
+
+
+            <div class="12u$" style="text-align: center;">
+                <ul class="actions">
+                    <li><input type="submit" value="Сохранить страницу"/></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block footerform %}
+{% endblock %}

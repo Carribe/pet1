@@ -1,0 +1,24 @@
+{% extends "pages/generic.html" %}
+{% block generic_page %}
+<section id="post" class="wrapper bg-img" data-bg="">
+    <div class="inner">
+        <article class="box">
+            <header>
+                <h2>{{ title }}</h2>
+            </header>
+            <div class="content">
+                <form method="post">
+                    {% csrf_token %}
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <p>{{ field.errors }}</p>
+                                {% endif %}
+                            {% endfor %}
+                    {{ form.as_p }}
+                    <button type="submit">Войти</button>
+                </form>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}

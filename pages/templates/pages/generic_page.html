@@ -1,0 +1,25 @@
+{% extends "pages/generic.html" %}
+{% load static %}
+{% load pages_tags %}
+
+{% block generic_page %}
+<section id="post" class="wrapper bg-img" data-bg="">
+    <div class="inner">
+        <article class="box">
+            <header>
+                <h2>{{ page.title }}</h2>
+                <p>{{ page.time_create|date:"d-m-Y" }}</p>
+            </header>
+            <div class="content">
+                <p>{{ page.content|linebreaks }}</p>
+            </div>
+            <footer>
+                <ul class="actions">
+                    <li><a href="#" class="button alt icon fa-chevron-left"><span class="label">Previous</span></a></li>
+                    <li><a href="#" class="button alt icon fa-chevron-right"><span class="label">Next</span></a></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+</section>
+{% endblock %}
